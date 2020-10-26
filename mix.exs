@@ -10,6 +10,7 @@ defmodule ExPhoneNumber.Mixfile do
       elixir: "~> 1.4",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
+      elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [coveralls: :test, "coveralls.travis": :test],
       deps: deps(),
@@ -24,6 +25,9 @@ defmodule ExPhoneNumber.Mixfile do
   def application do
     [extra_applications: [:logger]]
   end
+
+  def elixirc_paths(:test), do: ["lib", "test/support"]
+  def elixirc_paths(_), do: ["lib"]
 
   defp deps do
     [
@@ -41,10 +45,12 @@ defmodule ExPhoneNumber.Mixfile do
   end
 
   defp package do
-    [files: ["lib", "config", "resources", "LICENSE*", "README*", "mix.exs"],
-     licenses: ["MIT"],
-     links: %{"GitHub" => "https://github.com/socialpaymentsbv/ex_phone_number"},
-     maintainers: ["ClubCollect (@socialpaymentsbv)",  "Jose Miguel Rivero Bruno (@josemrb)"],
-     name: :ex_phone_number]
+    [
+      files: ["lib", "config", "resources", "LICENSE*", "README*", "mix.exs"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/socialpaymentsbv/ex_phone_number"},
+      maintainers: ["ClubCollect (@socialpaymentsbv)", "Jose Miguel Rivero Bruno (@josemrb)"],
+      name: :ex_phone_number
+    ]
   end
 end
